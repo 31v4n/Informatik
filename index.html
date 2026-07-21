@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenbanken Lernübersicht</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a, #7c3aed);
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(120deg, rgba(255,255,255,.15), rgba(255,255,255,.05));
+    backdrop-filter: blur(12px);
+}
+
+header h1 {
+    font-size: 3rem;
+    margin: 0;
+    background: linear-gradient(90deg,#38bdf8,#c084fc,#f472b6);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: .85;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+}
+
+.section {
+    margin: 40px 0;
+}
+
+.section h2 {
+    font-size: 2rem;
+    border-left: 8px solid #38bdf8;
+    padding-left: 15px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,.12);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,.2);
+    transition: .4s;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    background: rgba(255,255,255,.2);
+}
+
+.card h3 {
+    color:#7dd3fc;
+}
+
+.icon {
+    font-size: 35px;
+}
+
+.highlight {
+    color:#facc15;
+    font-weight:bold;
+}
+
+.example {
+    margin-top:15px;
+    padding:12px;
+    background:rgba(0,0,0,.25);
+    border-radius:12px;
+}
+
+footer {
+    text-align:center;
+    padding:30px;
+    opacity:.7;
+}
+
+.fade {
+    animation: fade 1s ease-in-out;
+}
+
+@keyframes fade {
+    from {
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to {
+        opacity:1;
+        transform:none;
+    }
+}
+
+.diagram {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.node {
+    padding:20px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#06b6d4,#8b5cf6);
+    min-width:150px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.arrow {
+    font-size:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Datenbanken</h1>
+<p>Modelle, Schlüssel, Beziehungen, ER-Diagramme & Normalisierung</p>
+</header>
+
+
+<div class="container">
+
+
+<section class="section fade">
+<h2>Datenbankarten</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Relationale Datenbanken</h3>
+<p>
+Daten werden in Tabellen mit Zeilen und Spalten gespeichert.
+Tabellen werden über Beziehungen verbunden und meistens mit
+<span class="highlight">SQL</span> abgefragt.
+</p>
+<div class="example">
+Beispiele: MySQL, PostgreSQL, MariaDB
+</div>
+</div>
+
+
+<div class="card">
+<h3>NoSQL-Datenbanken</h3>
+<p>
+Flexible Datenstrukturen für große Datenmengen und horizontale Skalierung.
+Ideal für unstrukturierte Daten.
+</p>
+<div class="example">
+Beispiele: MongoDB, Redis
+</div>
+</div>
+
+
+<div class="card">
+<h3>Graph-Datenbanken</h3>
+<p>
+Speichern Daten als Netzwerk aus Knoten und Verbindungen.
+Perfekt für komplexe Beziehungen.
+</p>
+<div class="example">
+Beispiel: Neo4j
+</div>
+</div>
+
+
+<div class="card">
+<h3>In-Memory-Datenbanken</h3>
+<p>
+Daten liegen direkt im Arbeitsspeicher und ermöglichen extrem schnelle Zugriffe.
+</p>
+<div class="example">
+Einsatz: Echtzeitanwendungen
+</div>
+</div>
+
+</div>
+</section>
+
+
+
+<section class="section">
+
+<div class="grid">
+
+<div class="card">
+<h3>Primärschlüssel</h3>
+<p>
+Identifiziert jeden Datensatz eindeutig.
+Keine Duplikate und niemals leer.
+</p>
+<div class="example">
+Beispiel: Kundennummer
+</div>
+</div>
+
+
+<div class="card">
+<h3>Fremdschlüssel</h3>
+<p>
+Verweist auf den Primärschlüssel einer anderen Tabelle
+und erstellt Beziehungen.
+</p>
+<div class="example">
+Bestellung → Kunde
+</div>
+</div>
+
+
+<div class="card">
+<h3>Kandidatenschlüssel</h3>
+<p>
+Kann einen Datensatz eindeutig identifizieren.
+Ein Kandidat wird später zum Primärschlüssel.
+</p>
+</div>
+
+
+<div class="card">
+<h3>Sekundärschlüssel</h3>
+<p>
+Wird für Suche oder Sortierung genutzt, ist aber nicht der Hauptidentifikator.
+</p>
+</div>
+
+</div>
+</section>
+
+
+
+<section class="section">
+<h2>Beziehungen</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>1 : 1</h3>
+<p>
+Ein Datensatz gehört genau zu einem anderen.
+</p>
+<div class="example">
+Abteilungsleiter ↔ Abteilung
+</div>
+</div>
+
+
+<div class="card">
+<h3>1 : N</h3>
+<p>
+Ein Datensatz kann mehrere andere besitzen.
+</p>
+<div class="example">
+Kunde → viele Bestellungen
+</div>
+</div>
+
+
+<div class="card">
+<h3>M : N</h3>
+<p>
+Viele Datensätze können vielen anderen zugeordnet werden.
+</p>
+<div class="example">
+mehrere Studenten ↔ mehrere Vorlesung
+</div>
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="section">
+
+
+<h2>ER-Diagramm Grundlagen</h2>
+
+
+
+<style>
+
+
+
+h1 {
+    text-align:center;
+    padding:40px;
+    font-size:42px;
+}
+
+
+.diagram {
+    position:relative;
+    width:1000px;
+    height:400px;
+	transform: scale(0.8);
+	justify-content:center;
+}
+
+
+/* Entitäten */
+
+.entity {
+    position:absolute;
+    width:170px;
+    height:90px;
+    background:#ef4444;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    border-radius:8px;
+    box-shadow:0 15px 30px #0005;
+    transition:.3s;
+}
+
+
+.entity:hover {
+    transform:scale(1.1);
+}
+
+
+
+/* Beziehung */
+
+.relationship {
+    position:absolute;
+    width:140px;
+    height:140px;
+    background:#3f6212;
+    transform:rotate(45deg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 10px 30px #0005;
+}
+
+
+.relationship span {
+    transform:rotate(-45deg);
+    font-size:24px;
+}
+
+
+/* Attribute */
+
+
+.attribute {
+
+    position:absolute;
+    width:180px;
+    height:80px;
+    background:#003b82;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    box-shadow:0 10px 20px #0005;
+}
+
+
+
+/* Linien */
+
+.line {
+    position:absolute;
+    height:4px;
+    background:white;
+    transform-origin:left center;
+}
+
+
+</style>
+
+<h3>Beispiel eines ER-Modells einer Bücherei</h3>
+
+
+<div class="diagram">
+
+
+<!-- Linien -->
+
+<div class="line"
+style="
+top:130px;
+left:250px;
+width:180px;">
+</div>
+
+
+<div class="line"
+style="
+top:130px;
+left:590px;
+width:170px;">
+</div>
+
+<!--Nutzer-->
+
+<div class="line"
+style="
+top:250px;
+left:100px;
+width:150px;
+transform:rotate(-70deg)">
+</div>
+
+<div class="line"
+style="
+top:350px;
+left:300px;
+width:250px;
+transform:rotate(-120deg)">
+</div>
+
+
+<!--Bücher-->
+<div class="line"
+style="
+top:130px;
+left:850px;
+width:150px;
+transform:rotate(60deg)">
+</div>
+
+<div class="line"
+style="
+top:130px;
+left:840px;
+width:200px;
+transform:rotate(90deg)">
+</div>
+
+<div class="line"
+style="
+top:130px;
+left:820px;
+width:200px;
+transform:rotate(130deg)">
+</div>
+
+
+<!-- Entitäten -->
+
+
+<div class="entity"
+style="top:80px;left:80px;">
+Nutzer
+</div>
+
+
+<div class="entity"
+style="top:80px;right:75px;">
+Bücher
+</div>
+
+
+
+<!-- Beziehung -->
+
+
+<div class="relationship"
+style="top:55px;left:430px;">
+
+<span>
+leiht aus
+</span>
+
+</div>
+
+
+
+<!-- Attribute Nutzer -->
+
+
+<div class="attribute"
+style="top:250px;left:20px;">
+<u>Mitglieds-<br>nummer</u>
+</div>
+
+
+<div class="attribute"
+style="top:330px;left:220px;">
+Name
+</div>
+
+
+
+<!-- Attribute Bücher -->
+
+<div class="attribute"
+style="top:250px;left:600px;">
+Titel
+</div>
+
+
+<div class="attribute"
+style="top:330px;left:750px;">
+Autor
+</div>
+
+
+<div class="attribute"
+style="top:250px;left:900px;">
+<u>ISBN</u>
+</div>
+
+</div>
+
+
+
+
+<br>
+
+<div class="grid">
+
+<div class="card">
+<h3>Entitätstyp</h3>
+<p>
+Objekte oder Personen, über die Daten gespeichert werden.
+In der Datenbank entspricht dies einer Tabelle.
+</p>
+</div>
+
+
+<div class="card">
+<h3>Attribute</h3>
+<p>
+Eigenschaften einer Entität.
+Der Primärschlüssel wird unterstrichen dargestellt.
+</p>
+</div>
+
+
+<div class="card">
+<h3>Beziehungen</h3>
+<p>
+Zeigen Verbindungen zwischen Entitäten.
+Zum Beispiel: Kunde erstellt Bestellung.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="section">
+
+<h2>Normalisierung</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>1. Normalform (1NF)</h3>
+<p>
+Alle Werte müssen atomar sein.
+Keine Listen oder mehrere Werte in einer Zelle.
+</p>
+<div class="example">
+Eine Zeile = ein eindeutiger Datensatz
+</div>
+</div>
+
+
+<div class="card">
+<h3>2. Normalform (2NF)</h3>
+<p>
+Die 1NF muss erfüllt sein.
+Nicht-Schlüsselattribute dürfen nicht nur von einem Teil eines zusammengesetzten Schlüssels abhängen.
+</p>
+<div class="example">
+Tabellen werden bei Bedarf getrennt
+</div>
+</div>
+
+
+<div class="card">
+<h3>3. Normalform (3NF)</h3>
+<p>
+Keine transitiven Abhängigkeiten.
+Attribute dürfen nur vom Primärschlüssel abhängig sein.
+</p>
+<div class="example">
+Keine unnötigen Abhängigkeiten zwischen Nicht-Schlüsseln
+</div>
+</div>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<footer>
+Datenbanken Lernkarte • Andreas Carda
+</footer>
+
+
+</body>
+</html>
